@@ -1,8 +1,8 @@
 const STORAGE_KEY = 'funday-app-state-v1';
 
 export const initialState = {
-  preferences: [],
-  duration: 3,
+  preferences: ['户外', '咖啡', '看展', '音乐'],
+  duration: '2h',
   currentPlan: null,
   favorites: [],
   registeredActivities: [],
