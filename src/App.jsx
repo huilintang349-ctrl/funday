@@ -52,7 +52,7 @@ export default function App() {
 
   const Page = pages[page - 1] || Home;
   return <main className="app">
-    <header className="head"><div><h1>方得 Funday</h1><p>今天，去玩点真的。</p></div><div className="version">React + Vite · v0.4.0</div></header>
+    <header className="head"><div><h1>方得 Funday</h1><p>今天，去玩点真的。</p></div><div className="version">React + Vite · v0.4.1</div></header>
     <nav className="toolbar" aria-label="页面导航">{screens.map(s => <button key={s.id} className={page === s.id ? 'active' : ''} onClick={() => go(s.id)}>{String(s.id).padStart(2, '0')} {s.name}</button>)}<span className="hint">← → 切页 · Esc 回首页</span></nav>
     <Page go={go} appState={state} store={store} />
   </main>;
