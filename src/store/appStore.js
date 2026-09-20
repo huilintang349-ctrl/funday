@@ -7,6 +7,7 @@ export const initialState = {
   favorites: [],
   registeredActivities: [],
   hostedActivities: [],
+  lastAction: null,
 };
 
 function readState() {
@@ -24,7 +25,7 @@ export function createAppStore(setState) {
   return {
     setPreferences: preferences => update({ preferences }),
     setDuration: duration => update({ duration }),
-    setCurrentPlan: currentPlan => update({ currentPlan }),
+    setCurrentPlan: currentPlan => update({ currentPlan, lastAction: 'plan' }),
     toggleFavorite: id => setState(prev => ({
       ...prev,
       favorites: prev.favorites.includes(id)
@@ -36,10 +37,12 @@ export function createAppStore(setState) {
       registeredActivities: prev.registeredActivities.includes(id)
         ? prev.registeredActivities
         : [...prev.registeredActivities, id],
+      lastAction: 'registered',
     })),
     addHostedActivity: activity => setState(prev => ({
       ...prev,
       hostedActivities: [...prev.hostedActivities, activity],
+      lastAction: 'hosted',
     })),
   };
 }
