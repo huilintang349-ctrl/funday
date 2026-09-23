@@ -8,10 +8,10 @@ export default function Activities({ go, appState, store }) {
   const list = filter === '全部' ? activities : activities.filter(a => a.type === filter);
   const registered = appState?.registeredActivities ?? [];
   const submit = () => {
-    if (!picked) return;
+    if (!picked || registered.includes(picked.id)) return;
     store.registerActivity(picked.id);
     setPicked(null);
     go(8);
   };
-  return <PhoneFrame index={6}><div className="content"><div className="row-between"><IconButton onClick={() => go(1)}>←</IconButton><b>活动报名</b><span /></div><h2 className="page-title">和有趣的人，<br/>一起去发生。</h2><div className="activity-filter">{['全部', '户外', '咖啡', '看展'].map(x => <button key={x} className={`duration ${filter === x ? 'active' : ''}`} onClick={() => setFilter(x)}>{x}</button>)}</div>{list.map(a => <div key={a.id} className={`activity-card ${a.tone}`} onClick={() => setPicked(a)}><h3>{a.title}</h3><div>{a.time} · {a.people}{registered.includes(a.id) ? ' · 已报名' : ''}</div></div>)}</div>{picked && <div className="modal-backdrop" onClick={() => setPicked(null)}><div className="modal" onClick={e => e.stopPropagation()}><h3>{picked.title}</h3><p>{picked.time}，{picked.people}。加入后你会看到活动集合地点和参与者信息。</p><div className="modal-actions"><Button onClick={() => setPicked(null)}>取消</Button><Button className="primary" onClick={submit}>{registered.includes(picked.id) ? '已报名' : '报名参加'}</Button></div></div></div>}</PhoneFrame>;
+  return <PhoneFrame index={6}><div className="content"><div className="row-between"><IconButton onClick={() => go(1)}>←</IconButton><b>活动报名</b><span /></div><h2 className="page-title">和有趣的人，<br/>一起去发生。</h2><div className="activity-filter">{['全部', '户外', '咖啡', '看展'].map(x => <button key={x} className={'duration ' + (filter === x ? 'active' : '')} onClick={() => setFilter(x)}>{x}</button>)}</div>{list.map(a => <div key={a.id} className={'activity-card ' + a.tone} onClick={() => setPicked(a)}><h3>{a.title}</h3><div>{a.time} · {a.people}{registered.includes(a.id) ? ' · 已报名' : ''}</div></div>)}</div>{picked && <div className="modal-backdrop" onClick={() => setPicked(null)}><div className="modal" onClick={e => e.stopPropagation()}><h3>{picked.title}</h3><p>{picked.time}，{picked.people}。加入后你会看到活动集合地点和参与者信息。</p><div className="modal-actions"><Button onClick={() => setPicked(null)}>取消</Button><Button className="primary" onClick={submit}>{registered.includes(picked.id) ? '已报名' : '报名参加'}</Button></div></div></div>}</PhoneFrame>;
 }
