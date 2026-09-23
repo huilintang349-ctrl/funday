@@ -1,6 +1,7 @@
 const STORAGE_KEY = 'funday-app-state-v1';
 
 export const initialState = {
+  prompt: '',
   preferences: ['户外', '咖啡', '看展', '音乐'],
   duration: '2h',
   currentPlan: null,
@@ -23,6 +24,7 @@ function readState() {
 export function createAppStore(setState) {
   const update = patch => setState(prev => ({ ...prev, ...patch }));
   return {
+    setPrompt: prompt => update({ prompt }),
     setPreferences: preferences => update({ preferences }),
     setDuration: duration => update({ duration }),
     setCurrentPlan: currentPlan => update({ currentPlan, lastAction: 'plan' }),
